@@ -1,0 +1,68 @@
+#include <iostream>
+#include <array>
+#include <vector>
+
+const int SIZE = 10;
+
+int binarySearch(const std::array<int, SIZE>& arr, int target) {
+    size_t left = 0;  
+    size_t right = SIZE - 1;  
+
+    while (left <= right) {
+        size_t mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+        else if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+int binarySearchFirst(const std::array<int, SIZE>& arr, int target) {
+    int index = binarySearch(arr, target);
+    if (index == -1) return -1;
+
+    while (index > 0 && arr[index - 1] == target) {
+        index--;
+    }
+    return index;
+}
+
+
+int binarySearch(const std::vector<int>& vec, int target) {
+    size_t left = 0;  
+    size_t right = vec.size() - 1; 
+
+    while (left <= right) {
+        size_t mid = left + (right - left) / 2;
+        if (vec[mid] == target) return mid;
+        else if (vec[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+int binarySearchFirst(const std::vector<int>& vec, int target) {
+    int index = binarySearch(vec, target);
+    if (index == -1) return -1;
+
+    while (index > 0 && vec[index - 1] == target) {
+        index--;
+    }
+    return index;
+}
+
+int main() {
+    
+    std::array<int, SIZE> arr = { 1, 2, 2, 2, 3, 4, 5, 6, 7, 8 };
+    int target = 2;
+    int firstIndex = binarySearchFirst(arr, target);
+
+    std::cout << "First occurrence of " << target << " in std::array is at index: " << firstIndex << std::endl;
+
+    
+    std::vector<int> vec = { 1, 2, 2, 2, 3, 4, 5, 6, 7, 8 };
+    firstIndex = binarySearchFirst(vec, target);
+    std::cout << "First occurrence of " << target << " in std::vector is at index: " << firstIndex << std::endl;
+
+    return 0;
+}
